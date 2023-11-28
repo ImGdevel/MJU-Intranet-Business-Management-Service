@@ -43,7 +43,6 @@ CREATE TABLE 회원정보 (
     ID VARCHAR(20) NOT NULL,
     직원사번 NUMBER(5) NOT NULL,
     비밀번호 VARCHAR(20) NOT NULL,
-    이름 VARCHAR(50) NOT NULL,
     전화번호 VARCHAR(20),
     생년월일 DATE,
     이메일 VARCHAR(50),
