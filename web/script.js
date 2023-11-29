@@ -6,8 +6,8 @@ function getProjects() {
     // 서버에서 가져온 데이터를 동적으로 테이블에 추가
     // 예제에서는 정적 데이터를 사용
     const projects = [
-        { number: 1, name: 'Project A', startDate: '2023-01-01', endDate: '2023-02-01', client: 'Client A' },
-        { number: 2, name: 'Project B', startDate: '2023-02-01', endDate: '2023-03-01', client: 'Client B' },
+        { number: 1, name: 'Project A', startDate: '2023-01-01', endDate: '2023-02-01', client: 'Client A', size: '10' },
+        { number: 2, name: 'Project B', startDate: '2023-02-01', endDate: '2023-03-01', client: 'Client B', size: '15' },
         // ... 추가 프로젝트 데이터
     ];
 
@@ -22,6 +22,7 @@ function getProjects() {
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.startDate}</button></td>
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.endDate}</button></td>
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.client}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.size}</button></td>
         `;
         projectList.appendChild(row);
     });

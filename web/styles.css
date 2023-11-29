@@ -67,15 +67,35 @@ table {
 
 th, td {
     text-align: left;
+    padding: 5px;
+}
+
+
+.project-ctg-number {
+    width: 5%;
+}
+
+.project-ctg-name {
+    width: 35%;
+}
+
+.project-ctg-date{
+    width: 15%;
+}
+
+.project-ctg-client {
+    width: 10%;
+}
+
+.project-ctg-teamsize{
+    width: 10%;
 }
 
 .project-button {
     width: 100%;
-    padding-top: 10px;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     text-align: left;
 }
