@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 테이블 전체 스타일링 */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        /* 테이블 헤더 스타일링 */
+        th {
+            background-color: #f2f2f2;
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* 테이블 바디 스타일링 */
+        td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* 테이블 헤더에 구분선 스타일링 */
+        thead {
+            border-bottom: 3px solid #242323;
+        }
+    </style>
+    <title>Table with Separator</title>
+</head>
+<body>
+
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+            <!-- 추가적인 헤더들... -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <!-- 추가적인 데이터들... -->
+        </tr>
+    </tbody>
+</table>
+
+<button onclick="addRow()">Add Row</button>
+
+<script>
+    function addRow() {
+        var table = document.getElementById("myTable");
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var newRow = tbody.insertRow(tbody.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        cell1.innerHTML = "New Data 1";
+        cell2.innerHTML = "New Data 2";
+    }
+</script>
+
+</body>
+</html>

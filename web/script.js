@@ -22,7 +22,6 @@ function getProjects() {
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.startDate}</button></td>
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.endDate}</button></td>
             <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.client}</button></td>
-            <td><button onclick="showProjectDetails(${project.number})" class="project-button">Details</button></td>
         `;
         projectList.appendChild(row);
     });
