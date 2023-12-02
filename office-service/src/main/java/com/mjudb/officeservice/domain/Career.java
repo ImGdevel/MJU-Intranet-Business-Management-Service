@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "경력")
+@IdClass(CareerID.class)
 @ToString
 public class Career {
     @Id
@@ -19,8 +19,12 @@ public class Career {
     @ApiModelProperty(example = "12345")
     private Long emp_num;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="경력번호", columnDefinition = "NUMBER(5,0)")
+    @ApiModelProperty(example = "12345")
+    private Long cr_num;
 
-    //
     @Column(name = "경력내용", columnDefinition = "VACHAR2(100)")
     @ApiModelProperty(example = "A회사에서 5년근무")
     private String cr_text;
