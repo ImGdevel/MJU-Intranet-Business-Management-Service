@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.2'
+	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+	id 'java'
+}
+
+group = 'com.mju-db'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '11'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'  // Swagger-UI
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터 jpa
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // html 템플릿
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 웹
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc' // jdbc
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8' // 오라클
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
