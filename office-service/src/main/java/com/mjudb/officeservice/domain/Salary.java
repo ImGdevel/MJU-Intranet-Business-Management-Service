@@ -11,9 +11,9 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "급여")
+@IdClass(SalaryKey.class)
 @ToString
 public class Salary {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name ="직원번호", columnDefinition = "NUMBER(5,0)")
