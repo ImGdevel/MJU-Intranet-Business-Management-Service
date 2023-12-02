@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MJU-Intranet-Business-Management-Service.iml" filepath="$PROJECT_DIR$/.idea/MJU-Intranet-Business-Management-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/office-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/office-service.main.iml" />
     </modules>
   </component>
 </project>
