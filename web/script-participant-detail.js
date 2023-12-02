@@ -28,9 +28,38 @@ function getParticipantDetails(empNumber) {
     participantText.innerHTML = details;
 
      // Call functions to display work experience and skills
+     displayProjectParticipation(empNumber);
      displayWorkExperience(empNumber);
      displaySkills(empNumber);
 }
+
+// Function to fetch and display project participation history
+function displayProjectParticipation(empNumber) {
+    // AJAX or Fetch logic to get project participation data from the backend
+    // Replace the following with your actual data retrieval logic
+    
+    // Example project participation data (replace this with your actual data)
+    const projectParticipationData = [
+        { projectNumber: 1, projectName: 'Project A', startDate: '2022-01-01', endDate: '2022-03-01', role: 'Developer' },
+        { projectNumber: 2, projectName: 'Project B', startDate: '2022-03-01', endDate: '2022-05-01', role: 'QA Engineer' },
+        // Additional project participation data
+    ];
+
+    // Update the project participation table with the retrieved data
+    const projectTableBody = document.getElementById('projectTableBody');
+    projectParticipationData.forEach(project => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${project.projectNumber}</td>
+            <td>${project.projectName}</td>
+            <td>${project.startDate}</td>
+            <td>${project.endDate}</td>
+            <td>${project.role}</td>
+        `;
+        projectTableBody.appendChild(row);
+    });
+}
+
 
 // Function to fetch and display work experience
 function displayWorkExperience(empNumber) {
