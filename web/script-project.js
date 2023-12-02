@@ -34,11 +34,6 @@ function showProjectDetails(projectNumber) {
     window.location.href = `project-details.html?projectNumber=${projectNumber}`;
 }
 
-// 프로젝트 상세 정보를 표시하는 함수
-function showProjectDetails(projectNumber) {
-    getProjectDetails(projectNumber);
-}
-
 // 페이지 로드 시 프로젝트 목록을 가져와서 표시
 document.addEventListener('DOMContentLoaded', function () {
     getProjects();
