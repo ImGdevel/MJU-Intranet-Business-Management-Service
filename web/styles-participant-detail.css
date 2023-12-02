@@ -1,0 +1,24 @@
+/* Add the following styles to your participant detail CSS file */
+
+.participant-info {
+    display: flex;
+}
+
+.participant-image {
+    flex: 3;
+    display: flex;
+    align-items: center;
+}
+
+.participant-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100px; /* Set a max-width if needed */
+    border-radius: 5px; /* Optional: Add border-radius for a rounded appearance */
+    margin: auto; /* Center the image horizontally */
+}
+
+.participant-text {
+    flex: 7;
+    padding-left: 20px; /* Add some padding for spacing */
+}

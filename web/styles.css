@@ -70,27 +70,6 @@ th, td {
     padding: 5px;
 }
 
-
-.project-ctg-number {
-    width: 5%;
-}
-
-.project-ctg-name {
-    width: 35%;
-}
-
-.project-ctg-date{
-    width: 15%;
-}
-
-.project-ctg-client {
-    width: 10%;
-}
-
-.project-ctg-teamsize{
-    width: 10%;
-}
-
 .project-button {
     width: 100%;
     background-color: #ffffff;
@@ -103,7 +82,7 @@ th, td {
 footer {
     background-color: #333;
     color: #fff;
-    text-align: center;
+    text-align: center;        
     padding: 1em 0;
     position: fixed;
     bottom: 0;

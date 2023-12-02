@@ -29,17 +29,9 @@ function getProjects() {
 }
 
 // 프로젝트 상세 정보를 가져오는 함수
-function getProjectDetails(projectNumber) {
-    // AJAX 또는 Fetch를 사용하여 백엔드에서 프로젝트 상세 정보를 가져오는 로직을 구현
-    // 서버에서 가져온 데이터를 상세 정보 영역에 표시
-    // 예제에서는 정적 데이터를 사용
-    const details = `
-        <h2>Project Details - ${projectNumber}</h2>
-        <p>Details about the project...</p>
-    `;
-
-    const projectDetails = document.getElementById('projectDetails');
-    projectDetails.innerHTML = details;
+function showProjectDetails(projectNumber) {
+    // 새로운 페이지로 이동하면서 프로젝트 번호를 URL에 전달
+    window.location.href = `project-details.html?projectNumber=${projectNumber}`;
 }
 
 // 프로젝트 상세 정보를 표시하는 함수
