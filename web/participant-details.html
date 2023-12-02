@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-participant-detail.css">
+    <script src="script-participant-detail.js"></script>
+    <style>
+        /* 추가한 스타일 */
+        #skillsAndExperience {
+            display: flex;
+        }
+
+        .participant-skills,
+        .participant-experience {
+            flex: 1;
+            margin-right: 20px; /* 간격 조절을 위한 마진 */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Participant Details</h1>
+        </div>
+    </header>
+
+    <section id="main-content" class="main-content">
+        <div class="container">
+            <div id="participantDetails" class="participant-details">
+                <div id="participantInfo" class="participant-info">
+                    <div id="participantImage" class="participant-image">
+                        <img src="/img/Default Profile.png" alt="Employee Picture">
+                    </div>
+                    <div id="participantText" class="participant-text">
+                        <!-- Placeholder for employee name, registration number, education, position, and department -->
+                    </div>
+                </div>
+
+                <div id="projectParticipationHistory">
+                     <!-- 직원이 참여한 프로젝트 이력 정보가 여기 표시 됩니다. -->
+                    <h3>Project Participation History</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Project Number</th>
+                                <th>Project Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectTableBody">
+                            <!-- 프로젝트 참여 이력 정보가 여기에 표시될 것입니다. -->
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div id="skillsAndExperience" class="skills-and-experience">
+                    <div id="participantSkills" class="participant-skills">
+                        <h3>Skills</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">Skill Name</th>
+                                    <th style="width: 70%;">Skill Ranke</th>
+                                </tr>
+                            </thead>
+                            <tbody id="skillTableBody">
+                                <!-- 스킬 정보가 여기에 표시될 것입니다. -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="participantExperience" class="participant-experience">
+                        <h3>Work Experience</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 13%;">Name</th>
+                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 15%;">Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="experienceTableBody">
+                                <!-- 경력 정보가 여기에 표시될 것입니다. -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 Participant Details. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
