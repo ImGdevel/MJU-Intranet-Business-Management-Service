@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "근태")
+@IdClass(AttendanceID.class)
 @ToString
 public class Attendance {
     @Id

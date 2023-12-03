@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "일정")
+@IdClass(ScheduleID.class)
 @ToString
 public class Schedule {
     @Id
