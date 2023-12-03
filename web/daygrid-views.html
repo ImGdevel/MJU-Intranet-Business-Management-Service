@@ -46,7 +46,7 @@
       eventLimit: true, // allow "more" link when too many events
       events: [
         {
-          title: '주간회의 진행',
+          title: '주간회의 진행ㅋㅋㅋㅋㅋㅋㅋㅋ',
           start: '2020-02-07',
           end: '2020-02-10',
           color : textColors[8],
@@ -81,15 +81,13 @@
       }
     },
     eventRender: function(info) {
-      // ID와 타이틀을 각각의 div에 나누어 표시
-      var maxLength = 5
-      var eventContent = '<div class="event-id">' + "● " + info.event.id + '</div>';
-      var context = info.event.title.length > maxLength ? info.event.title.substring(0, maxLength) + '...' : info.event.title;
-      eventContent += '<div class="event-title">' + "&nbsp;&nbsp;" + context  + '</div>';
+      var eventContent ="" ;
+      eventContent += '<div class="event-title">'+ "● " + info.event.id + " " + info.event.title + '</div>';
 
       // 이벤트 엘리먼트의 내용을 새로 생성한 HTML로 교체
       info.el.innerHTML = eventContent;
       info.el.style.display = 'flex';
+      info.el.style.height = '17px';
     }
     });
     calendar.render();
@@ -99,8 +97,13 @@
 <style>
 
 #calendar{
-  width: 800px;
+  width: 900px;
 }
+.event-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
 </style>
 </head>
