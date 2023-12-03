@@ -1,15 +1,18 @@
 package com.mjudb.officeservice.domain;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 
+@Data
 @NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "프로젝트_참여정보")
+@IdClass(ProjectParticipantKey.class)
 @ToString
 public class ProjectParticipant {
     @Id
