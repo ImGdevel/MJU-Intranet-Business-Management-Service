@@ -33,7 +33,7 @@ public class ProjectParticipant {
     @ApiModelProperty(example = "2023/01/01")
     private Long proj_out;
 
-    @JoinColumn(name = "직무번호", columnDefinition = "NUMBER(5,0)")
+    @JoinColumn(name = "수행직무", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "101")
     private Long role_num;
 }

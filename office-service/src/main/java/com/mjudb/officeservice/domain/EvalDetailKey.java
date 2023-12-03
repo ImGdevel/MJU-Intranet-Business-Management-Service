@@ -9,6 +9,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class EvalDetailKey implements Serializable {
-    private Long emp_num;
-    private String sal_date;
+    private Long eval_num;
+    private Long eval_type;
 }

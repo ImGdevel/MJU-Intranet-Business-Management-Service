@@ -30,7 +30,7 @@ public class Project {
     @ApiModelProperty(example = "2023/01/01")
     private Long proj_end;
 
-    @Column(name = "발주처번호", columnDefinition = "NUMBER(5,0)")
+    @Column(name = "발주처", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "imdinrks@gmail.com")
     private Long cust_num;
 }
