@@ -27,11 +27,11 @@ public class ProjectParticipant {
 
     @Column(name = "프로젝트투입일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023/01/01")
-    private Long proj_in;
+    private String proj_in;
 
     @Column(name = "프로젝트이탈일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023/01/01")
-    private Long proj_out;
+    private String proj_out;
 
     @JoinColumn(name = "수행직무", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "101")
