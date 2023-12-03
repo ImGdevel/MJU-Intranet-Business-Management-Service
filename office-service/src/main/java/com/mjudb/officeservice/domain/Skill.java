@@ -15,8 +15,7 @@ import javax.persistence.*;
 @ToString
 public class Skill {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="기술번호", columnDefinition = "NUMBER(2,0)")
+    @JoinColumn(name ="기술번호", columnDefinition = "NUMBER(2,0)")
     @ApiModelProperty(example = "11")
     private Long skill_num;
 
