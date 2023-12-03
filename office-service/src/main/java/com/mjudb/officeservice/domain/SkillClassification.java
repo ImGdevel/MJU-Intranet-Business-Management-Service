@@ -20,5 +20,5 @@ public class SkillClassification {
 
     @Column(name = "기술이름", columnDefinition = "VARCHAR(50)")
     @ApiModelProperty(example = "자바")
-    Long skill_name;
+    String skill_name;
 }
