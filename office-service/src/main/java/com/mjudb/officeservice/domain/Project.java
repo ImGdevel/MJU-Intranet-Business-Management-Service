@@ -24,11 +24,11 @@ public class Project {
 
     @Column(name = "프로젝트착수일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023/01/01")
-    private Long proj_start;
+    private String proj_start;
 
     @Column(name = "프로젝트종료일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023/01/01")
-    private Long proj_end;
+    private String proj_end;
 
     @Column(name = "발주처", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "imdinrks@gmail.com")
