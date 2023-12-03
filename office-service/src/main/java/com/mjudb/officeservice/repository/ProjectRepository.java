@@ -1,6 +1,7 @@
 package com.mjudb.officeservice.repository;
 
 import com.mjudb.officeservice.domain.Project;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

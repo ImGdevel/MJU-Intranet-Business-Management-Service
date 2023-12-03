@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProjectParticipantRepository extends JpaRepository<Project, Long> {
+public interface ProjectParticipantRepository extends JpaRepository<ProjectParticipant, Long> {
     @Query("select pp from ProjectParticipant pp where pp.proj_num = :proj_num")
     List<ProjectParticipant> findByProjNum(@Param("proj_num") Long proj_num);
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Project, Long> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query("SELECT s FROM Schedule s\n" +
             "WHERE s.emp_num IN (SELECT pp.emp_num FROM ProjectParticipant pp WHERE pp.proj_num = :proj_num)\n" +
             "AND (\n" +
