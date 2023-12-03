@@ -20,7 +20,7 @@ public class SkillService {
         this.skillRepository = skillRepository;
     }
 
-    public List<Skill> findByEmp_num(Long emp_num){
+    public List<Skill> findSkillByEmp_num(Long emp_num){
         return skillRepository.findByEmp_num(emp_num);
     }
 }

@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface SkillClassificationRepository extends JpaRepository<SkillClassification, Long> {
-    @Override
-    Optional<SkillClassification> findById(Long skill_num);
+
 }
