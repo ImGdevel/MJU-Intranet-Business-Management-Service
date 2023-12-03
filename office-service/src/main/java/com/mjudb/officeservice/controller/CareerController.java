@@ -30,7 +30,7 @@ public class CareerController {
     }
 
     @GetMapping("/{emp_num}")
-    @ApiOperation(value = "해당 직원이 보유한 기술 정보를 조회한다.")
+    @ApiOperation(value = "해당 직원이 보유한 경력을 조회한다.")
     public List<Career> findByEmp_num(@PathVariable(name = "emp_num") Long emp_num){
         return careerService.findByEmp_num(emp_num);
     }
