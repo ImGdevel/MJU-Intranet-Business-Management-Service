@@ -34,9 +34,10 @@ public class Employee {
     @ApiModelProperty(example = "부장")
     private String position;
 
-    @JoinColumn(name = "소속부서", columnDefinition = "NUMBER(3,0)")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Dept.class)
+    @JoinColumn(name = "소속부서", referencedColumnName = "부서번호")
     @ApiModelProperty(example = "103")
-    private Long dept_num;
+    private Dept dept_num;
 
     @Column(name = "정보권한등급", columnDefinition = "NUMBER(1,0)")
     @ApiModelProperty(example = "2")
