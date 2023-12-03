@@ -14,10 +14,9 @@ import javax.persistence.*;
 @ToString
 public class MemInfo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="ID", columnDefinition = "VARCHAR(20)")
+    @Column(name ="id", columnDefinition = "VARCHAR(20)")
     @ApiModelProperty(example = "SH WOO")
-    private String ID;
+    private String id;
 
     @JoinColumn(name = "직원사번", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")

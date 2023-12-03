@@ -1,5 +1,6 @@
 package com.mjudb.officeservice.service;
 
+import com.mjudb.officeservice.domain.Employee;
 import com.mjudb.officeservice.domain.Project;
 import com.mjudb.officeservice.repository.EmployeeRepository;
 import com.mjudb.officeservice.repository.ProjectRepository;
@@ -17,7 +18,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public String findEmployeeByID(Long emp_num){
-        return employeeRepository.findById(emp_num).get().getEmp_name();
+    public Employee findEmployeeByID(Long emp_num){
+        return employeeRepository.findById(emp_num).get();
     }
 }

@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="발주처번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long cust_num;

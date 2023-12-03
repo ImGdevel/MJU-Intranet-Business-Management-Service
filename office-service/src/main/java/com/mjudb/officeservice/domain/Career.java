@@ -20,7 +20,6 @@ public class Career {
     private Long emp_num;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="경력번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long cr_num;
