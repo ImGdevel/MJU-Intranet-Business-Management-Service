@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "급여")
-@IdClass(SalaryKey.class)
+@IdClass(SalaryID.class)
 @ToString
 public class Salary {
     @Id
@@ -20,7 +20,6 @@ public class Salary {
     private Long emp_num;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "급여일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023/01/01")
     private String sal_date;

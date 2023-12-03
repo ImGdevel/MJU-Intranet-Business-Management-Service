@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class CustomerEval {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="평가번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long eval_num;

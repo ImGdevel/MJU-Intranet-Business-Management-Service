@@ -15,7 +15,6 @@ import javax.persistence.*;
 @ToString
 public class Schedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="일정번호", columnDefinition = "NUMBER(10,0)")
     @ApiModelProperty(example = "0123456789")
     private Long sche_num;

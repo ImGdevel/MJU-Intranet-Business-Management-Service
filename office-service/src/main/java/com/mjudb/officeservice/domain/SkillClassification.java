@@ -14,12 +14,11 @@ import javax.persistence.*;
 @ToString
 public class SkillClassification {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="기술번호", columnDefinition = "NUMBER(2,0)")
     @ApiModelProperty(example = "10")
     Long skill_num;
 
     @Column(name = "기술이름", columnDefinition = "VARCHAR(50)")
     @ApiModelProperty(example = "자바")
-    Long skill_name;
+    String skill_name;
 }

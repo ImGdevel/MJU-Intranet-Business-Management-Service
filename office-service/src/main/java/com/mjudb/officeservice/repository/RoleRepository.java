@@ -1,8 +1,8 @@
 package com.mjudb.officeservice.repository;
 
-import com.mjudb.officeservice.domain.Employee;
 import com.mjudb.officeservice.domain.Project;
-import com.mjudb.officeservice.domain.ProjectParticipant;
+import com.mjudb.officeservice.domain.Role;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-
-
+public interface RoleRepository extends JpaRepository<Role, Long> {
     @Override
-    Optional<Employee> findById(Long emp_num);
+    Optional<Role> findById(Long role_num);
 }

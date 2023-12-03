@@ -20,7 +20,6 @@ public class Career {
     private Long emp_num;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="경력번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long cr_num;
@@ -31,7 +30,7 @@ public class Career {
 
     @Column(name = "경력시작일자", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023-10-11")
-    private Long cr_start_date;
+    private String cr_start_date;
 
     @Column(name = "기간", columnDefinition = "NUMBER(4,0)")
     @ApiModelProperty(example = "5")
