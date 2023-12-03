@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
@@ -18,4 +19,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             "    ON p.proj_num = subProj.proj_num\n" +
             "WHERE subProj.proj_start <= :date AND subProj.proj_end >= :date")
     List<Project> findByDate(@Param("date") String date);
+
+    Optional<Project> findById(Long id);
 }
