@@ -40,8 +40,8 @@ function displayProjectParticipation(empNumber) {
     
     // Example project participation data (replace this with your actual data)
     const projectParticipationData = [
-        { projectNumber: 1, projectName: 'Project A', startDate: '2022-01-01', endDate: '2022-03-01', role: 'Developer' },
-        { projectNumber: 2, projectName: 'Project B', startDate: '2022-03-01', endDate: '2022-05-01', role: 'QA Engineer' },
+        { projectNumber: 1, projectName: 'Project A', role: 'Developer', startDate: '2022-01-01', endDate: '2022-03-01'},
+        { projectNumber: 2, projectName: 'Project B', role: 'QA Engineer', startDate: '2022-03-01', endDate: '2022-05-01' },
         // Additional project participation data
     ];
 
@@ -52,9 +52,9 @@ function displayProjectParticipation(empNumber) {
         row.innerHTML = `
             <td>${project.projectNumber}</td>
             <td>${project.projectName}</td>
+            <td>${project.role}</td>
             <td>${project.startDate}</td>
             <td>${project.endDate}</td>
-            <td>${project.role}</td>
         `;
         projectTableBody.appendChild(row);
     });
