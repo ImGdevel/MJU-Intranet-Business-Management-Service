@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Role")
-@Api(tags = {"직무의 이름을 반환한다."})
+@Api(tags = {"직무 정보 API"})
 public class RoleController {
     private final RoleService roleService;
 

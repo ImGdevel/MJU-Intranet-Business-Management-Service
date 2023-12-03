@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Skill")
-@Api(tags = {"기술의 이름을 반환한다."})
+@Api(tags = {"기술 정보 API"})
 public class SkillClassificationController {
     private final SkillClassificationService skillClassificationService;
 
