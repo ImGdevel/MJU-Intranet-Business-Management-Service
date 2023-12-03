@@ -26,10 +26,10 @@ public class Customer {
 
     @Column(name = "발주처전화번호", columnDefinition = "VARCHAR(20)")
     @ApiModelProperty(example = "031)1234-5678")
-    private Long cust_phone_num;
+    private String cust_phone_num;
 
     @Column(name = "발주처이메일", columnDefinition = "VARCHAR(50)")
     @ApiModelProperty(example = "imdinrks@gmail.com")
-    private Long cust_email;
+    private String cust_email;
 
 }

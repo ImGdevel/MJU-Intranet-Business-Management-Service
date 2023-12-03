@@ -19,4 +19,12 @@ public class ProjectService {
     public List<Project> findByDate(String date){
         return projectRepository.findByDate(date);
     }
+
+    public Project findProjectbyID(Long id){
+        return projectRepository.findById(id).get();
+    }
+
+    public String findProjectName(Long id){
+        return projectRepository.findById(id).get().getProj_name();
+    }
 }
