@@ -80,17 +80,18 @@
         eventLimit: false // 이벤트 개수 제한을 해제
       }
     },
-      eventRender: function(info) {
+    eventRender: function(info) {
       // ID와 타이틀을 각각의 div에 나누어 표시
+      var maxLength = 5
       var eventContent = '<div class="event-id">' + "● " + info.event.id + '</div>';
-      eventContent += '<div class="event-title">' + "&nbsp;&nbsp;" +  info.event.title + '</div>';
+      var context = info.event.title.length > maxLength ? info.event.title.substring(0, maxLength) + '...' : info.event.title;
+      eventContent += '<div class="event-title">' + "&nbsp;&nbsp;" + context  + '</div>';
 
       // 이벤트 엘리먼트의 내용을 새로 생성한 HTML로 교체
       info.el.innerHTML = eventContent;
       info.el.style.display = 'flex';
     }
     });
-
     calendar.render();
   });
 
