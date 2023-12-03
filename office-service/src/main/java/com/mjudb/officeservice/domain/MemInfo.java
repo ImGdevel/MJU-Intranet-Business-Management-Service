@@ -19,7 +19,7 @@ public class MemInfo {
     @ApiModelProperty(example = "SH WOO")
     private String ID;
 
-    @JoinColumn(name = "직원번호", columnDefinition = "NUMBER(5,0)")
+    @JoinColumn(name = "직원사번", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")
     private Long emp_num;
 

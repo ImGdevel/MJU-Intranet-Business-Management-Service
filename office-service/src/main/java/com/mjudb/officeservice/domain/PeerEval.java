@@ -19,7 +19,7 @@ public class PeerEval {
     @ApiModelProperty(example = "12345")
     private Long eval_num;
 
-    @JoinColumn(name = "직원번호", columnDefinition = "NUMBER(5,0)")
+    @JoinColumn(name = "평가자_동료", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")
     private Long emp_num;
 }

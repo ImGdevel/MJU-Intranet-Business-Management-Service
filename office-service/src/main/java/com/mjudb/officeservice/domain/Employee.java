@@ -35,7 +35,7 @@ public class Employee {
     @ApiModelProperty(example = "부장")
     private String position;
 
-    @JoinColumn(name = "부서번호", columnDefinition = "NUMBER(3,0)")
+    @JoinColumn(name = "소속부서", columnDefinition = "NUMBER(3,0)")
     @ApiModelProperty(example = "103")
     private String department_num;
 

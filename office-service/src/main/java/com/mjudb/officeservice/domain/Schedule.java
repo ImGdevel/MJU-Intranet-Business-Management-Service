@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "일정")
 @IdClass(ScheduleID.class)
 @ToString
 public class Schedule {
@@ -20,7 +21,6 @@ public class Schedule {
     private Long sche_num;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name ="직원번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long emp_num;
