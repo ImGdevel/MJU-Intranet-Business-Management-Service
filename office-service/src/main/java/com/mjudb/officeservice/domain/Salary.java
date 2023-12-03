@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "급여")
-@IdClass(SalaryKey.class)
+@IdClass(SalaryID.class)
 @ToString
 public class Salary {
     @Id

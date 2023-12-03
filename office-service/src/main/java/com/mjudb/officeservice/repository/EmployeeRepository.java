@@ -1,5 +1,6 @@
 package com.mjudb.officeservice.repository;
 
+import com.mjudb.officeservice.domain.Employee;
 import com.mjudb.officeservice.domain.Project;
 import com.mjudb.officeservice.domain.ProjectParticipant;
 import org.springframework.data.jpa.repository.JpaRepository;
