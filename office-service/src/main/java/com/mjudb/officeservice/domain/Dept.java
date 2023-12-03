@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Dept {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="부서번호", columnDefinition = "NUMBER(3,0)")
     @ApiModelProperty(example = "101")
     private Long dept_num;

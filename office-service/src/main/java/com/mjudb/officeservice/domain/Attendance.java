@@ -15,7 +15,6 @@ import javax.persistence.*;
 @ToString
 public class Attendance {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="날짜", columnDefinition = "DATE")
     @ApiModelProperty(example = "2023-11-12")
     private String date;

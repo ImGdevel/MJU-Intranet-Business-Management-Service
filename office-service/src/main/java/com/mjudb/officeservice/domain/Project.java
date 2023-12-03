@@ -13,7 +13,6 @@ import javax.persistence.*;
 @ToString
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="프로젝트번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long proj_num;

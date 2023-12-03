@@ -15,7 +15,6 @@ import javax.persistence.*;
 @ToString
 public class EduTraining {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="교육훈련번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "0123456789")
     private Long eduT_num;
