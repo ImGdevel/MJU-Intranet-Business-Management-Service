@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "기술")
+@IdClass(SkillID.class)
 @ToString
 public class Skill {
     @Id
