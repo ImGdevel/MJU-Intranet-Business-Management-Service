@@ -1,4 +1,8 @@
 // script-participant-detail.js
+const APIPATH = "http://localhost:8080/";
+
+
+
 
 // Function to fetch and display participant details
 function getParticipantDetails(empNumber) {

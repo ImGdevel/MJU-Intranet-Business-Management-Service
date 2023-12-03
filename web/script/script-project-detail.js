@@ -1,4 +1,6 @@
 //script-project-detail.js
+const APIPATH = "http://localhost:8080/";
+
 
 // Function to get project number from the URL
 function getProjectNumberFromURL() {
