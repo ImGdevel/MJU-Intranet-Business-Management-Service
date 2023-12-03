@@ -10,8 +10,11 @@ import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    List<Project> findByProjNum(Long proj_num);
 
-    @Query("select p from Project p where p.proj_num in (select Project.proj_num from Project where Project.proj_start <= :date and Project.proj_end >= :date)")
+    @Query("SELECT p\n" +
+            "FROM Project p\n" +
+            "JOIN Project subProj\n" +
+            "    ON p.proj_num = subProj.proj_num\n" +
+            "WHERE subProj.proj_start <= :date AND subProj.proj_end >= :date")
     List<Project> findByDate(@Param("date") Long date);
 }

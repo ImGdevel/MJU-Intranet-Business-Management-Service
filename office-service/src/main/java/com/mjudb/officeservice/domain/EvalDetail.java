@@ -25,11 +25,11 @@ public class EvalDetail {
     @ApiModelProperty(example = "1")
     private Long eval_type;
 
-    @JoinColumn(name = "프로젝트번호", columnDefinition = "NUMBER(5,0)")
+    @Column(name = "평가내용", columnDefinition = "VARCHAR(500)")
     @ApiModelProperty(example = "10001")
     private Long proj_num;
 
-    @JoinColumn(name = "직원번호", columnDefinition = "NUMBER(5,0)")
+    @Column(name = "평점", columnDefinition = "NUMBER(2,1)")
     @ApiModelProperty(example = "11")
     private Long emp_num;
 }

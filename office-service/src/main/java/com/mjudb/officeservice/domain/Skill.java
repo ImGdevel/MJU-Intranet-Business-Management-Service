@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "기술")
 @IdClass(SkillID.class)
 @ToString
 public class Skill {
@@ -20,7 +21,6 @@ public class Skill {
     private Long skill_num;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name ="직원번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long emp_num;
