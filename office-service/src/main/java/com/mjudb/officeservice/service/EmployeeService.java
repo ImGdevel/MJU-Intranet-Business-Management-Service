@@ -21,4 +21,6 @@ public class EmployeeService {
     public Employee findEmployeeByID(Long emp_num){
         return employeeRepository.findById(emp_num).get();
     }
+
+    public String findEmployeeName(Long emp_num) { return employeeRepository.findById(emp_num).get().getEmp_name();}
 }

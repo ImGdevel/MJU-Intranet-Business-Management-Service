@@ -32,4 +32,9 @@ public class EmployeeController {
         return employeeService.findEmployeeByID(emp_num);
     }
 
+    @GetMapping("/name/{emp_num}")
+    @ApiOperation(value = "직원 이름을 반환한다.")
+    public String findEmployeeName(@PathVariable(name = "emp_num") Long emp_num) {
+        return employeeService.findEmployeeName(emp_num);
+    }
 }
