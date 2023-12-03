@@ -20,12 +20,9 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(SwaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.mjudb.officeservice.server.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.mjudb.officeservice.controller"))
                 .paths(PathSelectors.any())
-                .build()
-                .useDefaultResponseMessages(false)
-                .securityContexts(List.of(securityContext()))
-                .securitySchemes(List.of(bearerAuthSecurityScheme()));
+                .build();
     }
 
     private ApiInfo SwaggerInfo() {
@@ -36,24 +33,4 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private SecurityContext securityContext() {
-        return springfox.documentation
-                .spi.service.contexts
-                .SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .operationSelector(operationContext -> true)
-                .build();
-    }
-
-    private List<SecurityReference> defaultAuth() {
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = new AuthorizationScope("global", "accessEverything");
-        return List.of(new SecurityReference(REFERENCE, authorizationScopes));
-    }
-
-    private HttpAuthenticationScheme bearerAuthSecurityScheme() {
-        return HttpAuthenticationScheme.JWT_BEARER_BUILDER
-                .name(REFERENCE)
-                .build();
-    }
 }

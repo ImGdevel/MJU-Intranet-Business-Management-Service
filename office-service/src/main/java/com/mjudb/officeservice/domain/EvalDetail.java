@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "상세평가")
-@IdClass(EvalDetailKey.class)
+@IdClass(EvalDetailID.class)
 @ToString
 public class EvalDetail {
 

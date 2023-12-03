@@ -25,4 +25,6 @@ public class ProjectController {
     public List<Project> findByDate(@PathVariable(name = "date") String date){
         return projectService.findByDate(date);
     }
+
+
 }

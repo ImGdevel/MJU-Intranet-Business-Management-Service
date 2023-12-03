@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "프로젝트_참여정보")
-@IdClass(ProjectParticipantKey.class)
+@IdClass(ProjectParticipantID.class)
 @ToString
 public class ProjectParticipant {
     @Id
