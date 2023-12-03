@@ -11,13 +11,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Career")
 @Api(tags = {"직원 경력 API"})
@@ -30,7 +27,7 @@ public class CareerController {
     }
 
     @GetMapping("/{emp_num}")
-    @ApiOperation(value = "해당 직원이 보유한 기술 정보를 조회한다.")
+    @ApiOperation(value = "해당 직원이 보유한 경력을 조회한다.")
     public List<Career> findByEmp_num(@PathVariable(name = "emp_num") Long emp_num){
         return careerService.findByEmp_num(emp_num);
     }
