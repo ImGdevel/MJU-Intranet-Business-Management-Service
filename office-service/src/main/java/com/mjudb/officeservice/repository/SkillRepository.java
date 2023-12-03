@@ -13,6 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, SkillID> {
-    @Query("select s from Skill s where s.emp_num = :emp_num")
-    List<Skill> findByEmp_num(@Param("emp_num")Long emp_num);
+    @Query("select s from Skill s where s.emp_num = :id")
+    List<Skill> findByEmp_num(@Param("id")Long id);
 }

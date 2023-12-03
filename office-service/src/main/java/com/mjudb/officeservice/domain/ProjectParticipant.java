@@ -33,7 +33,8 @@ public class ProjectParticipant {
     @ApiModelProperty(example = "2023/01/01")
     private String proj_out;
 
-    @JoinColumn(name = "수행직무", columnDefinition = "NUMBER(5,0)")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Role.class)
+    @JoinColumn(name = "수행직무", referencedColumnName = "직무번호")
     @ApiModelProperty(example = "101")
-    private Long role_num;
+    private Role role_num;
 }
