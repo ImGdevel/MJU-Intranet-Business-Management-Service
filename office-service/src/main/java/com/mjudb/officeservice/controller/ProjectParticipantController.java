@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/project-participant")
 @Api(tags = {"프로젝트 참여 정보 API"})
