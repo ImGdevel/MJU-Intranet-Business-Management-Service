@@ -15,12 +15,13 @@ import javax.persistence.*;
 public class PmEval {
 
     @Id
-    @Column(name ="평가번호", columnDefinition = "NUMBER(5,0)")
+    @JoinColumn(name ="평가번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long eval_num;
 
-    @Column(name = "평가자_PM", columnDefinition = "NUMBER")
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
+    @JoinColumn(name = "평가자_PM", columnDefinition = "NUMBER")
     @ApiModelProperty(example = "12")
-    private Long PM_num;
+    private Employee emp_num;
 
 }

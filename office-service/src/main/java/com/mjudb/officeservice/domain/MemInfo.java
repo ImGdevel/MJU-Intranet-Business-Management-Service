@@ -18,9 +18,10 @@ public class MemInfo {
     @ApiModelProperty(example = "SH WOO")
     private String id;
 
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "직원사번", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")
-    private Long emp_num;
+    private Employee emp_num;
 
     @Column(name = "비밀번호", columnDefinition = "VARCHAR(20)")
     @ApiModelProperty(example = "qwerty123")

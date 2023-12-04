@@ -41,5 +41,5 @@ public class Employee {
 
     @Column(name = "정보권한등급", columnDefinition = "NUMBER(1,0)")
     @ApiModelProperty(example = "2")
-    private String security_level;
+    private Long security_level;
 }
