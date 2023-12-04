@@ -17,6 +17,7 @@ DROP TABLE 발주처;
 DROP TABLE 회원정보;
 DROP TABLE 직원;
 DROP TABLE 부서;
+DROP VIEW 프로젝트참여자수;
 
 CREATE TABLE 부서 (
     부서번호 NUMBER(3) NOT NULL,
@@ -197,7 +198,6 @@ CREATE TABLE 일정 (
     FOREIGN KEY (직원번호) REFERENCES 직원(직원번호)
 );
 
-
 CREATE TABLE 근태 (
     날짜 DATE NOT NULL,
     직원번호 NUMBER(5),
@@ -206,6 +206,12 @@ CREATE TABLE 근태 (
     PRIMARY KEY (날짜, 직원번호),
     FOREIGN KEY (직원번호) REFERENCES 직원(직원번호)
 );
+
+create view 프로젝트참여자수(프로젝트번호, 참여자수) as
+select 프로젝트.프로젝트번호 as 프로젝트번호, count(직원번호)
+from 프로젝트, 프로젝트_참여정보
+where 프로젝트.프로젝트번호 = 프로젝트_참여정보.프로젝트번호
+group by 프로젝트.프로젝트번호;
 
 
 COMMIT;

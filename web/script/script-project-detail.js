@@ -17,7 +17,7 @@ async function fetchProjectDetails(projectNumber) {
             name: project.proj_name,
             startDate: project.proj_start.split(' ')[0], // Extracting date part
             endDate: project.proj_end.split(' ')[0], // Extracting date part
-            client: project.cust_num, // 클라이언트 번호 또는 이름으로 변경해야 할 수 있습니다.
+            client: project.cust_num.cust_name, // 클라이언트 번호 또는 이름으로 변경해야 할 수 있습니다.
         };
 
         return mappedProject;
@@ -70,10 +70,10 @@ function displayProjectDetails(project) {
     const projectDetails = document.getElementById('projectDetails');
     projectDetails.innerHTML = `
         <h2>${project.name}</h2>
-        <span>Project Number: ${project.number}, </span>
-        <span>Client: ${project.client}, </span> <br>
-        <span>Start Date: ${project.startDate}, </span>
-        <span>End Date: ${project.endDate}</span>  <br>
+        <span style="padding-right: 30px;">Project Number: ${project.number} </span>
+        <span style="padding-right: 30px;">Client: ${project.client} </span> 
+        <span style="padding-right: 30px;">Start Date: ${project.startDate} </span>
+        <span style="padding-right: 30px;">End Date: ${project.endDate}</span>  <br>
         <hr />
     `;
 }
