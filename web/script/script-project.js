@@ -1,55 +1,82 @@
-// script.js
 const APIPATH = "http://localhost:8080/";
 
-// 프로젝트 목록을 가져오는 함수
-async function getProjects() {
+// Function to fetch project data from the backend
+async function fetchProjects() {
     try {
-        // AJAX 또는 Fetch를 사용하여 백엔드에서 프로젝트 목록을 가져오는 로직을 구현
-        // 서버에서 가져온 데이터를 동적으로 테이블에 추가
-        // 예제에서는 정적 데이터를 사용
-
         const response = await fetch(`${APIPATH}project/2023-11-28`);
-        const data = await response.json();
-
-        const projects = await Promise.all(data.map(async project => {
-            const clientResponse = await fetch(`${APIPATH}/customer/${project.cust_num}`);
-            const clientData = await clientResponse.text(); // 텍스트로 받아오기
-
-            return {
-                number: project.proj_num,
-                name: project.proj_name,
-                startDate: project.proj_start.split(' ')[0], // Extracting date part
-                endDate: project.proj_end.split(' ')[0], // Extracting date part
-                client: clientData,
-                size: 'N/A' // You might need to adjust this based on the actual data structure
-            };
-        }));
-
-        const projectList = document.getElementById('projectList');
-        projectList.innerHTML = '';
-
-        projects.forEach(project => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.number}</button></td>
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.name}</button></td>
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.startDate}</button></td>
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.endDate}</button></td>
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.client}</button></td>
-                <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.size}</button></td>
-            `;
-            projectList.appendChild(row);
-        });
+        return await response.json();
     } catch (error) {
-        //console.error('에러 발생:', error);
+        console.error('에러 발생:', error);
+        throw error;
     }
 }
 
-// 프로젝트 상세 정보를 가져오는 함수
-function showProjectDetails(projectNumber) {
-    // 새로운 페이지로 이동하면서 프로젝트 번호를 URL에 전달
-    window.location.href = `project-details.html?projectNumber=${projectNumber}`;
+// Function to fetch client data based on project customer number
+async function fetchClientData(custNum) {
+    try {
+        const clientResponse = await fetch(`${APIPATH}/customer/${custNum}`);
+        return await clientResponse.text();
+    } catch (error) {
+        console.error('에러 발생:', error);
+        throw error;
+    }
 }
 
-// 페이지 로드 시 프로젝트 목록을 가져와서 표시
+// Function to map project data to a more readable format
+function mapProjectData(project) {
+    return {
+        number: project.proj_num,
+        name: project.proj_name,
+        startDate: project.proj_start.split(' ')[0],
+        endDate: project.proj_end.split(' ')[0],
+        size: 'N/A' // You might need to adjust this based on the actual data structure
+    };
+}
+
+// Function to fetch and display projects
+async function getProjects() {
+    try {
+        const data = await fetchProjects();
+
+        const projects = await Promise.all(data.map(async project => {
+            const clientData = await fetchClientData(project.cust_num);
+
+            return {
+                ...mapProjectData(project),
+                client: clientData
+            };
+        }));
+
+        displayProjects(projects);
+    } catch (error) {
+        console.error('에러 발생:', error);
+    }
+}
+
+// Function to display projects in the table
+function displayProjects(projects) {
+    const projectList = document.getElementById('projectList');
+    projectList.innerHTML = '';
+
+    projects.forEach(project => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.number}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.name}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.startDate}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.endDate}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.client}</button></td>
+            <td><button onclick="showProjectDetails(${project.number})" class="project-button">${project.size}</button></td>
+        `;
+        projectList.appendChild(row);
+    });
+}
+
+// Call the getProjects function on page load
 document.addEventListener('DOMContentLoaded', getProjects);
+
+// Function to show project details
+function showProjectDetails(projectNumber) {
+    // Redirect to the project details page with the projectNumber parameter
+    window.location.href = `project-details.html?projectNumber=${projectNumber}`;
+}
