@@ -70,10 +70,10 @@ function displayProjectDetails(project) {
     const projectDetails = document.getElementById('projectDetails');
     projectDetails.innerHTML = `
         <h2>${project.name}</h2>
-        <span>Project Number: ${project.number}, </span>
-        <span>Client: ${project.client}, </span> <br>
-        <span>Start Date: ${project.startDate}, </span>
-        <span>End Date: ${project.endDate}</span>  <br>
+        <span style="padding-right: 30px;">Project Number: ${project.number} </span>
+        <span style="padding-right: 30px;">Client: ${project.client} </span> 
+        <span style="padding-right: 30px;">Start Date: ${project.startDate} </span>
+        <span style="padding-right: 30px;">End Date: ${project.endDate}</span>  <br>
         <hr />
     `;
 }

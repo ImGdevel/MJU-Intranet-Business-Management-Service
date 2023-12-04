@@ -18,4 +18,10 @@ th, td {
     border: none;
     cursor: pointer;
     text-align: left;
+    font-size: 17px;
+}
+
+#projectDetails span {
+    padding-right: 10px;
+    margin-right: 10px;
 }
