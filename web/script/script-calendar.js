@@ -1,3 +1,5 @@
+const APIPATH = "http://localhost:8080/";
+
 
 //색깔표
 const textColors = [

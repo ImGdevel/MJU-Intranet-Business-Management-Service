@@ -1,16 +1,60 @@
-// script.js
+const APIPATH = "http://localhost:8080/";
 
-// 프로젝트 목록을 가져오는 함수
-function getProjects() {
-    // AJAX 또는 Fetch를 사용하여 백엔드에서 프로젝트 목록을 가져오는 로직을 구현
-    // 서버에서 가져온 데이터를 동적으로 테이블에 추가
-    // 예제에서는 정적 데이터를 사용
-    const projects = [
-        { number: 1, name: 'Project A', startDate: '2023-01-01', endDate: '2023-02-01', client: 'Client A', size: '10' },
-        { number: 2, name: 'Project B', startDate: '2023-02-01', endDate: '2023-03-01', client: 'Client B', size: '15' },
-        // ... 추가 프로젝트 데이터
-    ];
+// Function to fetch project data from the backend
+async function fetchProjects() {
+    try {
+        const response = await fetch(`${APIPATH}project/2023-11-28`);
+        return await response.json();
+    } catch (error) {
+        console.error('에러 발생:', error);
+        throw error;
+    }
+}
 
+// Function to fetch client data based on project customer number
+async function fetchClientData(custNum) {
+    try {
+        const clientResponse = await fetch(`${APIPATH}/customer/${custNum}`);
+        return await clientResponse.text();
+    } catch (error) {
+        console.error('에러 발생:', error);
+        throw error;
+    }
+}
+
+// Function to map project data to a more readable format
+function mapProjectData(project) {
+    return {
+        number: project.proj_num,
+        name: project.proj_name,
+        startDate: project.proj_start.split(' ')[0],
+        endDate: project.proj_end.split(' ')[0],
+        size: 'N/A' // You might need to adjust this based on the actual data structure
+    };
+}
+
+// Function to fetch and display projects
+async function getProjects() {
+    try {
+        const data = await fetchProjects();
+
+        const projects = await Promise.all(data.map(async project => {
+            const clientData = await fetchClientData(project.cust_num);
+
+            return {
+                ...mapProjectData(project),
+                client: clientData
+            };
+        }));
+
+        displayProjects(projects);
+    } catch (error) {
+        console.error('에러 발생:', error);
+    }
+}
+
+// Function to display projects in the table
+function displayProjects(projects) {
     const projectList = document.getElementById('projectList');
     projectList.innerHTML = '';
 
@@ -28,13 +72,11 @@ function getProjects() {
     });
 }
 
-// 프로젝트 상세 정보를 가져오는 함수
+// Call the getProjects function on page load
+document.addEventListener('DOMContentLoaded', getProjects);
+
+// Function to show project details
 function showProjectDetails(projectNumber) {
-    // 새로운 페이지로 이동하면서 프로젝트 번호를 URL에 전달
+    // Redirect to the project details page with the projectNumber parameter
     window.location.href = `project-details.html?projectNumber=${projectNumber}`;
 }
-
-// 페이지 로드 시 프로젝트 목록을 가져와서 표시
-document.addEventListener('DOMContentLoaded', function () {
-    getProjects();
-});

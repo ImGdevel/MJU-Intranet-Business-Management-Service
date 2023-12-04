@@ -1,4 +1,5 @@
-//script-project-detail.js
+// script-project-detail.js
+const APIPATH = "http://localhost:8080/";
 
 // Function to get project number from the URL
 function getProjectNumberFromURL() {
@@ -6,21 +7,66 @@ function getProjectNumberFromURL() {
     return urlParams.get('projectNumber');
 }
 
-// Function to get project details
-function getProjectDetails() {
-    const projectNumber = getProjectNumberFromURL();
+async function fetchProjectDetails(projectNumber) {
+    try {
+        const response = await fetch(`${APIPATH}project/detail/${projectNumber}`);
+        const project = await response.json();
 
-    // Implement the logic to fetch project details from the backend using AJAX or Fetch
-    // Display the data in the project details area
-    // For this example, static data is used
-    const project = {
-        number: 1,
-        name: 'Project A',
-        startDate: '2023-01-01',
-        endDate: '2023-02-01',
-        client: 'Client A'
+        const mappedProject = {
+            number: project.proj_num,
+            name: project.proj_name,
+            startDate: project.proj_start.split(' ')[0], // Extracting date part
+            endDate: project.proj_end.split(' ')[0], // Extracting date part
+            client: project.cust_num, // 클라이언트 번호 또는 이름으로 변경해야 할 수 있습니다.
+        };
+
+        return mappedProject;
+    } catch (error) {
+        console.error('Error fetching project details:', error);
+        throw error;
+    }
+}
+
+// Function to fetch project participants
+async function fetchProjectParticipants(projectNumber) {
+    try {
+        const response = await fetch(`${APIPATH}project-participant/project/${projectNumber}`);
+        const participants = await response.json();
+         // Map the participants data
+        const mappedParticipants = await Promise.all(participants.map(mapProjectParticipants));
+        return mappedParticipants;
+         
+    } catch (error) {
+        console.error('Error fetching project participants:', error);
+        throw error;
+    }
+}
+
+// Function to fetch employee name by employee number
+async function fetchEmployeeName(empNumber) {
+    try {
+        const response = await fetch(`${APIPATH}employee/name/${empNumber}`);
+        const employeeName = await response.text(); // Assuming the response is a plain text with the employee name
+        return employeeName;
+    } catch (error) {
+        console.error(`Error fetching employee name for employee ${empNumber}:`, error);
+        throw error;
+    }
+}
+
+
+async function mapProjectParticipants(participant) {
+    return {
+        empNumber: participant.emp_num,
+        empName: await fetchEmployeeName(participant.emp_num), // Employee name data is not provided in the sample, you can update this when available.
+        role: participant.role_num.role_name,
+        startDate: participant.proj_in.split(' ')[0], // Extracting date part
+        endDate: participant.proj_out.split(' ')[0], // Extracting date part
     };
+}
 
+// Function to display project details
+function displayProjectDetails(project) {
     const projectDetails = document.getElementById('projectDetails');
     projectDetails.innerHTML = `
         <h2>${project.name}</h2>
@@ -32,28 +78,12 @@ function getProjectDetails() {
     `;
 }
 
-// Function to get and display project participants
-function getProjectParticipants() {
-    const projectNumber = getProjectNumberFromURL();
-
-    // Implement the logic to fetch project participants from the backend using AJAX or Fetch
-    // For this example, static data is used
-    const participants = [
-        { empNumber: '001', empName: 'John Doe', role: 'Developer', startDate: '2023-01-01', endDate: '2023-01-15' },
-        { empNumber: '002', empName: 'Jane Smith', role: 'Designer', startDate: '2023-01-05', endDate: '2023-02-01' },
-        // ... additional participant data
-    ];
-
-    displayProjectParticipants(participants);
-}
-
 // Function to display project participants
 function displayProjectParticipants(participants) {
     const participantsList = document.getElementById('projectParticipantsList');
     participantsList.innerHTML = '';
 
     participants.forEach(participant => {
-        // Create a row for each participant
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${participant.empNumber}</td>
@@ -67,14 +97,21 @@ function displayProjectParticipants(participants) {
     });
 }
 
+// Function to show participant details
 function showParticipantDetails(empNumber) {
-    // Redirect to the participant details page with the empNumber parameter
     window.location.href = `participant-details.html?empNumber=${empNumber}`;
 }
 
-
 // Load project details and participants when the page is loaded
-document.addEventListener('DOMContentLoaded', function () {
-    getProjectDetails();
-    getProjectParticipants();
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        const projectNumber = getProjectNumberFromURL();
+        const project = await fetchProjectDetails(projectNumber);
+        const participants = await fetchProjectParticipants(projectNumber);
+
+        displayProjectDetails(project);
+        displayProjectParticipants(participants);
+    } catch (error) {
+        console.error('Error loading project details:', error);
+    }
 });

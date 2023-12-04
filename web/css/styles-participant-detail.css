@@ -44,3 +44,17 @@ th, td {
     cursor: pointer;
     text-align: left;
 }
+
+#skillsAndExperience {
+    display: flex;
+}
+
+.participant-skills,
+.participant-experience {
+    flex: 4; 
+    margin-right: 20px; /* 간격 조절을 위한 마진 */
+}
+
+.participant-experience {
+    flex: 6; 
+}
