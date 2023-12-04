@@ -1,34 +1,32 @@
 const APIPATH = "http://localhost:8080/";
 
-// Function to fetch and display participant details
 async function getParticipantDetails(empNumber) {
     try {
         const participantData = await fetchParticipantDetails(empNumber);
 
         const details = `
-            <h2>${participantData.name}</h2>
-            <p>Resident Registration Number: ${participantData.registrationNumber}</p>
-            <p>Highest Education Level: ${participantData.education}</p>
+            <h2>${participantData.emp_name}</h2>
+            <p>Resident Registration Number: ${participantData.person_num}</p>
+            <p>Highest Education Level: ${participantData.edu_level}</p>
             <p>Position: ${participantData.position}</p>
-            <p>Department: ${participantData.department}</p>
+            <p>Department: ${participantData.dept_num.dept_name}</p>
         `;
 
         const participantText = document.getElementById('participantText');
         participantText.innerHTML = details;
 
-        // Call functions to display work experience and skills
-        await displayProjectParticipation(empNumber);
-        await displayWorkExperience(empNumber);
+        // Call functions to display work experience, skills, and project participation history
+        await displayProjectParticipationHistory(empNumber);
+        await displayCareerInformation(empNumber);
         await displaySkills(empNumber);
     } catch (error) {
         console.error('에러 발생:', error);
     }
 }
 
-// Function to fetch participant details from the backend
 async function fetchParticipantDetails(empNumber) {
     try {
-        const response = await fetch(`${APIPATH}employee/detail/${empNumber}`);
+        const response = await fetch(`${APIPATH}employee/${empNumber}`);
         return await response.json();
     } catch (error) {
         console.error(`Error fetching participant details for employee ${empNumber}:`, error);
@@ -36,77 +34,97 @@ async function fetchParticipantDetails(empNumber) {
     }
 }
 
-// Function to fetch and display project participation history
-async function displayProjectParticipation(empNumber) {
+// Function to fetch and display project participation history for a participant
+async function displayProjectParticipationHistory(empNumber) {
     try {
-        const projectParticipationData = await fetchProjectParticipation(empNumber);
+        const projectParticipationHistory = await fetchProjectParticipationHistory(empNumber);
 
-        const projectTableBody = document.getElementById('projectTableBody');
-        projectTableBody.innerHTML = '';
+        const projectParticipationTableBody = document.getElementById('projectParticipationTableBody');
+        projectParticipationTableBody.innerHTML = '';
 
-        projectParticipationData.forEach(project => {
+        // Use Promise.all to handle multiple asynchronous operations concurrently
+        const rows = await Promise.all(projectParticipationHistory.map(async record => {
+            const projectName = await fetchProjectName(record.proj_num);
+            
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${project.projectNumber}</td>
-                <td>${project.projectName}</td>
-                <td>${project.role}</td>
-                <td>${project.startDate}</td>
-                <td>${project.endDate}</td>
+                <td>${record.proj_num}</td>
+                <td>${projectName}</td>
+                <td>${record.role_num.role_name}</td>
+                <td>${record.proj_in.split(' ')[0]}</td>
+                <td>${record.proj_out.split(' ')[0]}</td>
             `;
-            projectTableBody.appendChild(row);
+            return row;
+        }));
+
+        // Append all rows to the table body
+        rows.forEach(row => {
+            projectParticipationTableBody.appendChild(row);
         });
     } catch (error) {
-        console.error(`Error fetching project participation for employee ${empNumber}:`, error);
+        console.error(`Error fetching project participation history for employee ${empNumber}:`, error);
         throw error;
     }
 }
 
-// Function to fetch project participation data from the backend
-async function fetchProjectParticipation(empNumber) {
+
+async function fetchProjectName(projectId) {
     try {
-        const response = await fetch(`${APIPATH}employee/project-participation/${empNumber}`);
+        const response = await fetch(`${APIPATH}project/name/${projectId}`);
+        const projectName = await response.text(); // Assuming the response is plain text with the project name
+        return projectName;
+    } catch (error) {
+        console.error(`Error fetching project name for project ${projectId}:`, error);
+        throw error;
+    }
+}
+
+// Function to fetch project participation history data from the backend
+async function fetchProjectParticipationHistory(empNumber) {
+    try {
+        const response = await fetch(`${APIPATH}project-participant/emp/${empNumber}`);
         return await response.json();
     } catch (error) {
-        console.error(`Error fetching project participation for employee ${empNumber}:`, error);
+        console.error(`Error fetching project participation history for employee ${empNumber}:`, error);
         throw error;
     }
 }
 
-// Function to fetch and display work experience
-async function displayWorkExperience(empNumber) {
+
+// Function to fetch and display career information
+async function displayCareerInformation(empNumber) {
     try {
-        const workExperienceData = await fetchWorkExperience(empNumber);
+        const careerData = await fetchCareerInformation(empNumber);
 
         const experienceTableBody = document.getElementById('experienceTableBody');
         experienceTableBody.innerHTML = '';
 
-        workExperienceData.forEach(experience => {
+        careerData.forEach(career => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${experience.name}</td>
-                <td>${experience.date}</td>
-                <td>${convertMonthsToYears(experience.duration)}</td>
+                <td>${career.cr_text}</td>
+                <td>${career.cr_start_date.split(' ')[0]}</td>
+                <td>${convertDaysToYearsAndMonths(career.cr_period)}</td>
             `;
             experienceTableBody.appendChild(row);
         });
     } catch (error) {
-        console.error(`Error fetching work experience for employee ${empNumber}:`, error);
+        console.error(`Error fetching career information for employee ${empNumber}:`, error);
         throw error;
     }
 }
 
-// Function to fetch work experience data from the backend
-async function fetchWorkExperience(empNumber) {
+// Function to fetch career information from the backend
+async function fetchCareerInformation(empNumber) {
     try {
-        const response = await fetch(`${APIPATH}employee/work-experience/${empNumber}`);
+        const response = await fetch(`${APIPATH}Career/${empNumber}`);
         return await response.json();
     } catch (error) {
-        console.error(`Error fetching work experience for employee ${empNumber}:`, error);
+        console.error(`Error fetching career information for employee ${empNumber}:`, error);
         throw error;
     }
 }
 
-// Function to fetch and display skills
 async function displaySkills(empNumber) {
     try {
         const skillsData = await fetchSkills(empNumber);
@@ -128,10 +146,22 @@ async function displaySkills(empNumber) {
     }
 }
 
+// Function to fetch skill name based on skill number
+async function fetchSkillName(skillNumber) {
+    try {
+        const response = await fetch(`${APIPATH}SkillClassification/${skillNumber}`);
+        const skillName = await response.text(); // Assuming the response is plain text with the skill name
+        return skillName;
+    } catch (error) {
+        console.error(`Error fetching skill name for skill ${skillNumber}:`, error);
+        throw error;
+    }
+}
+
 // Function to fetch skills data from the backend
 async function fetchSkills(empNumber) {
     try {
-        const response = await fetch(`${APIPATH}employee/skills/${empNumber}`);
+        const response = await fetch(`${APIPATH}Skill/${empNumber}`);
         return await response.json();
     } catch (error) {
         console.error(`Error fetching skills for employee ${empNumber}:`, error);
@@ -139,22 +169,49 @@ async function fetchSkills(empNumber) {
     }
 }
 
-// Function to convert months to years and months
-function convertMonthsToYears(months) {
-    const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
 
-    if (years > 0 && remainingMonths > 0) {
-        return `${years} years ${remainingMonths} months`;
-    } else if (years > 0) {
-        return `${years} years`;
-    } else {
-        return `${remainingMonths} months`;
+// Inside the displaySkills function
+async function displaySkills(empNumber) {
+    try {
+        const skillsData = await fetchSkills(empNumber);
+
+        const skillTableBody = document.getElementById('skillTableBody');
+        skillTableBody.innerHTML = '';
+
+        skillsData.forEach(async skill => {
+            const skillName = await fetchSkillName(skill.skill_num);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${skillName}</td>
+                <td>${mapSkillLevelToText(skill.skill_level)}</td>
+            `;
+            skillTableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error(`Error fetching skills for employee ${empNumber}:`, error);
+        throw error;
     }
 }
 
-// Function to map rank to text
-function mapRankToText(rank) {
+function convertDaysToYearsAndMonths(days) {
+    const years = Math.floor(days / 365);
+    const remainingDays = days % 365;
+    const months = Math.floor(remainingDays / 30); // Assuming an average month has 30 days
+    const remainingMonths = remainingDays % 30;
+
+    if (years > 0 && months > 0) {
+        return `${years} 년 ${months} 개월`;
+    } else if (years > 0) {
+        return `${years} 년`;
+    } else {
+        return `${months} 개월`;
+    }
+}
+
+
+
+function mapSkillLevelToText(rank) {
     switch (rank) {
         case 1:
             return 'Junior';
@@ -172,13 +229,10 @@ function getEmpNumberFromURL() {
     return urlParams.get('empNumber');
 }
 
-// Initial function call when the page loads
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        // Extract empNumber from the URL
         const empNumber = getEmpNumberFromURL();
-
-        // Call the function to get and display participant details
+        console.log(empNumber);
         await getParticipantDetails(empNumber);
     } catch (error) {
         console.error('에러 발생:', error);
