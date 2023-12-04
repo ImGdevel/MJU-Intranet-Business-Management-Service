@@ -17,7 +17,7 @@ async function fetchProjectDetails(projectNumber) {
             name: project.proj_name,
             startDate: project.proj_start.split(' ')[0], // Extracting date part
             endDate: project.proj_end.split(' ')[0], // Extracting date part
-            client: project.cust_num, // 클라이언트 번호 또는 이름으로 변경해야 할 수 있습니다.
+            client: project.cust_num.cust_name, // 클라이언트 번호 또는 이름으로 변경해야 할 수 있습니다.
         };
 
         return mappedProject;

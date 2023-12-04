@@ -1,6 +1,5 @@
 const APIPATH = "http://localhost:8080/";
 
-// Function to fetch project data from the backend
 async function fetchProjects() {
     try {
         const response = await fetch(`${APIPATH}project/2023-11-28`);
@@ -11,10 +10,9 @@ async function fetchProjects() {
     }
 }
 
-// Function to fetch client data based on project customer number
-async function fetchClientData(custNum) {
+async function fetchProjectTeamSize(proj_num) {
     try {
-        const clientResponse = await fetch(`${APIPATH}/customer/${custNum}`);
+        const clientResponse = await fetch(`${APIPATH}/ParticipantNum/${proj_num}`);
         return await clientResponse.text();
     } catch (error) {
         console.error('에러 발생:', error);
@@ -22,28 +20,25 @@ async function fetchClientData(custNum) {
     }
 }
 
-// Function to map project data to a more readable format
 function mapProjectData(project) {
     return {
         number: project.proj_num,
         name: project.proj_name,
         startDate: project.proj_start.split(' ')[0],
         endDate: project.proj_end.split(' ')[0],
-        size: 'N/A' // You might need to adjust this based on the actual data structure
+        client: project.cust_num.cust_name,
     };
 }
 
-// Function to fetch and display projects
 async function getProjects() {
     try {
         const data = await fetchProjects();
 
         const projects = await Promise.all(data.map(async project => {
-            const clientData = await fetchClientData(project.cust_num);
-
+            const team_size = await fetchProjectTeamSize(project.proj_num);
             return {
                 ...mapProjectData(project),
-                client: clientData
+                size: team_size,
             };
         }));
 
@@ -53,7 +48,6 @@ async function getProjects() {
     }
 }
 
-// Function to display projects in the table
 function displayProjects(projects) {
     const projectList = document.getElementById('projectList');
     projectList.innerHTML = '';
@@ -72,11 +66,8 @@ function displayProjects(projects) {
     });
 }
 
-// Call the getProjects function on page load
 document.addEventListener('DOMContentLoaded', getProjects);
 
-// Function to show project details
 function showProjectDetails(projectNumber) {
-    // Redirect to the project details page with the projectNumber parameter
     window.location.href = `project-details.html?projectNumber=${projectNumber}`;
 }
