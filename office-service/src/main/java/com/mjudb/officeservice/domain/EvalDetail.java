@@ -31,5 +31,5 @@ public class EvalDetail {
 
     @Column(name = "평점", columnDefinition = "NUMBER(2,1)")
     @ApiModelProperty(example = "11")
-    private Long emp_num;
+    private Long eval_rate;
 }

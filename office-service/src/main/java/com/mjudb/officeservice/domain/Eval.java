@@ -19,11 +19,13 @@ public class Eval {
     @ApiModelProperty(example = "12345")
     private Long eval_num;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Project.class)
     @JoinColumn(name = "프로젝트번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "10001")
-    private Long proj_num;
+    private ProjectParticipantID proj_num;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "직원번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")
-    private Long emp_num;
+    private ProjectParticipantID emp_num;
 }

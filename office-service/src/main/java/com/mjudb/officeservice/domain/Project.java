@@ -29,7 +29,8 @@ public class Project {
     @ApiModelProperty(example = "2023/01/01")
     private String proj_end;
 
-    @Column(name = "발주처", columnDefinition = "NUMBER(5,0)")
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
+    @JoinColumn(name = "발주처", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "imdinrks@gmail.com")
-    private Long cust_num;
+    private Customer cust_num;
 }

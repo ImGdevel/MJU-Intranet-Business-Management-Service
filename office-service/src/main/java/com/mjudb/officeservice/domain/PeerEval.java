@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Table(name = "동료평가")
 @ToString
 public class PeerEval {
-
     @Id
     @JoinColumn(name ="평가번호", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "12345")
     private Long eval_num;
 
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "평가자_동료", columnDefinition = "NUMBER(5,0)")
     @ApiModelProperty(example = "11")
-    private Long emp_num;
+    private Employee emp_num;
 }
