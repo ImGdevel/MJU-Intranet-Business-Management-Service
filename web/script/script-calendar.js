@@ -23,13 +23,22 @@ const textColors = [
   '#FF00FF'  // 진한 마젠타색 배경
 ];
 
+// Function to get project number from the URL
+function getProjectNumberFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('projectNumber');
+}
+
 function initializeCalendar() {
-  var calendarEl = document.getElementById('calendar');
+  let calendarEl = document.getElementById('calendar');
 
-  var defaultDate = '2023-12'; // 실시간 현제 날짜로
-  var events = getEvents();
+  let defaultDate = '2023-12'; // 실시간 현제 날짜로
+  let proj_number = getProjectNumberFromURL();
 
-  console.log("문제 발생");
+  console.log(proj_number);
+
+  let events = [];// getEvents(proj_number);
+
   console.log(events);
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -65,40 +74,32 @@ function renderEventContent(info) {
   info.el.style.height = '17px';
 }
 
-// 이벤트를 가져오는 함수
-function getEvents(){
-  var enventdatas = [
-    {
-      title: '주간회의 진행ㅋㅋㅋㅋㅋㅋㅋㅋ',
-      start: '2023-12-07',
-      end: '2023-12-10',
-      color: textColors[8],
-      id: '배수호'
-    },
-    {
-      title: '테스트 케이스 개발',
-      start: '2023-12-07',
-      end: '2023-12-20',
-      color: textColors[3],
-      id: '서원우'
-    },
-    {
-      title: '휴가',
-      start: '2023-12-07',
-      end: '2023-12-10',
-      color: textColors[6],
-      id: '우승화'
-    },
-    {
-      title: '사내 교육',
-      start: '2023-12-07',
-      end: '2023-12-10',
-      color: textColors[2],
-      id: '임준원'
-    }
-  ];
 
-  return enventdatas;
+// 이벤트를 가져오는 함수
+async function getEvents(projectNumber) {
+  try {
+    const response = await fetch(`${APIPATH}Schedule/${projectNumber}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const scheduleData = await response.json();
+
+    // Map Spring schedule data to FullCalendar event format
+    const events = scheduleData.map(schedule => ({
+      title: schedule.sche_contents,
+      start: schedule.sche_start_date,
+      end: schedule.sche_end_date,
+      color: getRandomColor(), // Use a function to get a random color or use a predefined set of colors
+      id: schedule.sche_num.toString()
+    }));
+
+    return events;
+  } catch (error) {
+    console.error('Error fetching schedule data:', error);
+    return [];
+  }
 }
 
 // 페이지 로드 시 프로젝트 목록을 가져와서 표시

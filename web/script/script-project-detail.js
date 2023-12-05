@@ -73,9 +73,16 @@ function displayProjectDetails(project) {
         <span style="padding-right: 30px;">Project Number: ${project.number} </span>
         <span style="padding-right: 30px;">Client: ${project.client} </span> 
         <span style="padding-right: 30px;">Start Date: ${project.startDate} </span>
-        <span style="padding-right: 30px;">End Date: ${project.endDate}</span>  <br>
-        <hr />
+        <span style="padding-right: 30px;">End Date: ${project.endDate}</span>  
+        <button id="daygrid-views-btn" onclick="navigateToSchedule(${project.number})">View Schedule</button>
+        <br> <hr />
     `;
+}
+
+// Function to navigate to the schedule page
+function navigateToSchedule(projectNumber) {
+    // Assuming you have a schedule page URL, you can redirect to that page
+    window.location.href = `daygrid-views.html?projectNumber=${projectNumber}`;
 }
 
 // Function to display project participants
