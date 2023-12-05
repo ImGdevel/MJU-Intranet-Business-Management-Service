@@ -26,6 +26,12 @@ public class ProjectController {
     public List<Project> findByDate(@PathVariable(name = "date") String date){
         return projectService.findByDate(date);
     }
+    @GetMapping("/period/{start}/{end}")
+    @ApiOperation(value = "해당 기간내에 진행중인 프로젝트를 검색한다.")
+    public List<Project> findByPeriod(@PathVariable(name = "start") String start, @PathVariable(name = "end") String end){
+        return projectService.findByPeriod(start, end);
+    }
+
 
     @GetMapping("/detail/{proj-id}")
     @ApiOperation(value = "프로젝트 정보를 검색한다.")
