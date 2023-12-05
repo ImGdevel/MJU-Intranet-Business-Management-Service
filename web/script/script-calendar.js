@@ -29,15 +29,63 @@ function getProjectNumberFromURL() {
   return urlParams.get('projectNumber');
 }
 
-function initializeCalendar() {
+let colorIndex = 0; // 전역 변수로 선언하여 색상 인덱스를 유지
+
+function getNextColor() {
+  const color = textColors[colorIndex];
+  colorIndex = (colorIndex + 1) % textColors.length; // 다음 색상 인덱스로 업데이트
+  return color;
+}
+
+
+// 이벤트를 가져오는 함수
+async function getEvents(projectNumber) {
+  try {
+    console.log(`Schedule/${projectNumber}`);
+    const response = await fetch(`${APIPATH}Skhedule/${projectNumber}`);
+    console.log(response)
+
+    const scheduleData = await response.json();
+
+    console.log(scheduleData);
+
+    const events = await Promise.all(scheduleData.map(async schedule => ({
+      title: schedule.sche_contents,
+      start: schedule.sche_start_date.split(' ')[0],
+      end: schedule.sche_end_date.split(' ')[0],
+      color: getNextColor(),
+      id: await fetchEmployeeName(schedule.emp_num)
+    })));
+
+    return events;
+  } catch (error) {
+    console.error('Error fetching schedule data:', error);
+    return [];
+  }
+}
+
+
+
+// Function to fetch employee name by employee number
+async function fetchEmployeeName(empNumber) {
+  try {
+      const response = await fetch(`${APIPATH}employee/name/${empNumber}`);
+      const employeeName = await response.text(); // Assuming the response is a plain text with the employee name
+      return employeeName;
+  } catch (error) {
+      console.error(`Error fetching employee name for employee ${empNumber}:`, error);
+      throw error;
+  }
+}
+
+
+async function initializeCalendar(projectNumber) {
   let calendarEl = document.getElementById('calendar');
 
-  let defaultDate = '2023-12'; // 실시간 현제 날짜로
-  let proj_number = getProjectNumberFromURL();
+  let defaultDate = '2023-11'; // 실시간 현제 날짜로
+  console.log(projectNumber);
 
-  console.log(proj_number);
-
-  let events = [];// getEvents(proj_number);
+  let events = await getEvents(projectNumber);
 
   console.log(events);
 
@@ -75,34 +123,10 @@ function renderEventContent(info) {
 }
 
 
-// 이벤트를 가져오는 함수
-async function getEvents(projectNumber) {
-  try {
-    const response = await fetch(`${APIPATH}Schedule/${projectNumber}`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const scheduleData = await response.json();
-
-    // Map Spring schedule data to FullCalendar event format
-    const events = scheduleData.map(schedule => ({
-      title: schedule.sche_contents,
-      start: schedule.sche_start_date,
-      end: schedule.sche_end_date,
-      color: getRandomColor(), // Use a function to get a random color or use a predefined set of colors
-      id: schedule.sche_num.toString()
-    }));
-
-    return events;
-  } catch (error) {
-    console.error('Error fetching schedule data:', error);
-    return [];
-  }
-}
-
-// 페이지 로드 시 프로젝트 목록을 가져와서 표시
 document.addEventListener('DOMContentLoaded', function () {
-  initializeCalendar();
+  // 프로젝트 번호를 원하는 값으로 설정
+  const projectNumber = getProjectNumberFromURL();
+  
+  // FullCalendar 초기화
+  initializeCalendar(projectNumber);
 });
