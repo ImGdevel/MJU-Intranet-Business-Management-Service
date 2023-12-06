@@ -12,10 +12,9 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, ScheduleID> {
-    @Query("SELECT s FROM Schedule s, Project p\n" +
-            "WHERE s.emp_num IN (SELECT pp.emp_num FROM ProjectParticipant pp WHERE pp.proj_num = :proj_num)\n" +
-            "AND (p.proj_num = :proj_num)\n" +
-            "AND ((s.sche_start_date >= p.proj_start AND s.sche_start_date <= p.proj_end)\n" +
-            "    OR (s.sche_end_date >= p.proj_start AND s.sche_end_date <= p.proj_end)\n)")
+    @Query("SELECT s FROM Schedule s JOIN Project p ON p.proj_num = :proj_num " +
+            "WHERE s.emp_num IN (SELECT pp.emp_num FROM ProjectParticipant pp WHERE pp.proj_num = :proj_num) " +
+            "AND (s.sche_start_date BETWEEN p.proj_start AND p.proj_end " +
+            "OR s.sche_end_date BETWEEN p.proj_start AND p.proj_end)")
     List<Schedule> findByProj_num(@Param("proj_num") Long proj_num);
 }
