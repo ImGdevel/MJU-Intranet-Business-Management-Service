@@ -26,6 +26,21 @@
     <section id="main-content" class="main-content">
         <div class="container">
             <h1>Project List</h1>
+
+            
+
+            <!-- 추가: 시작날짜 선택 -->
+            <label for="startDate">Start Date: </label>
+            <input type="date" id="startDate">
+            
+            <!-- 추가: 종료날짜 선택 -->
+            <label for="endDate">End Date: </label>
+            <input type="date" id="endDate">
+            
+            <!-- 추가: 확인 버튼 -->
+            <button onclick="handleConfirmation()"> 검색 </button>
+            <button onclick="getProjects()"> 현제 프로젝트 현황 </button>
+            
             <table>
                 <thead>
                     <tr>

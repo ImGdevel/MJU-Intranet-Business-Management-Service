@@ -2,7 +2,8 @@ const APIPATH = "http://localhost:8080/";
 
 async function fetchProjects() {
     try {
-        const response = await fetch(`${APIPATH}project/2023-11-20`);
+        let days = "2023-11-20";
+        const response = await fetch(`${APIPATH}project/${days}`);
         return await response.json();
     } catch (error) {
         console.error('에러 발생:', error);
@@ -33,6 +34,51 @@ function mapProjectData(project) {
 async function getProjects() {
     try {
         const data = await fetchProjects();
+
+        const projects = await Promise.all(data.map(async project => {
+            const team_size = await fetchProjectTeamSize(project.proj_num);
+            return {
+                ...mapProjectData(project),
+                size: team_size,
+            };
+        }));
+
+        displayProjects(projects);
+    } catch (error) {
+        console.error('에러 발생:', error);
+    }
+}
+
+
+// 추가: 확인 버튼 클릭 시 호출되는 함수
+function handleConfirmation() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    // 예외 처리: 시작날짜와 종료날짜가 선택되지 않은 경우
+    if (!startDate || !endDate) {
+        alert('Please select both start date and end date.');
+        return;
+    }
+    console.log(startDate, endDate);
+    getProjectsToDays(startDate, endDate);
+}
+
+// 수정: fetchProjects 함수에 매개변수 추가 (startDate, endDate)
+async function fetchProjectsToDays(startDate, endDate) {
+    try {
+        const response = await fetch(`${APIPATH}project/period/${startDate}/${endDate}`);
+        return await response.json();
+    } catch (error) {
+        console.error('에러 발생:', error);
+        throw error;
+    }
+}
+
+// 수정: getProjects 함수에 매개변수 추가 (startDate, endDate)
+async function getProjectsToDays(startDate, endDate) {
+    try {
+        const data = await fetchProjectsToDays(startDate, endDate);
 
         const projects = await Promise.all(data.map(async project => {
             const team_size = await fetchProjectTeamSize(project.proj_num);
