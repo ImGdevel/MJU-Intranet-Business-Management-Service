@@ -43,10 +43,7 @@ async function getEvents(projectNumber) {
   try {
     console.log(`Schedule/${projectNumber}`);
     const response = await fetch(`${APIPATH}Skhedule/${projectNumber}`);
-    console.log(response)
-
     const scheduleData = await response.json();
-
     console.log(scheduleData);
 
     const events = await Promise.all(scheduleData.map(async schedule => ({

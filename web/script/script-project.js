@@ -2,7 +2,7 @@ const APIPATH = "http://localhost:8080/";
 
 async function fetchProjects() {
     try {
-        const response = await fetch(`${APIPATH}project/2023-11-16`);
+        const response = await fetch(`${APIPATH}project/2023-11-20`);
         return await response.json();
     } catch (error) {
         console.error('에러 발생:', error);
