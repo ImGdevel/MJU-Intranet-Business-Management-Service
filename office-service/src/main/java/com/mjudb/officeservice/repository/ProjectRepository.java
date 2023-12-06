@@ -24,7 +24,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
             "JOIN Project subProj\n" +
             "    ON p.proj_num = subProj.proj_num\n" +
             "WHERE (p.proj_start <= :start AND p.proj_end >= :start)\n" +
-            "    OR (p.proj_end >= :end AND p.proj_end >= :end)\n" +
+            "    OR (p.proj_start <= :end AND p.proj_end >= :end)\n" +
             "OR (:start <= p.proj_start AND :end >= p.proj_start)")
     List<Project> findByPeriod(@Param("start") String start, @Param("end") String end);
 
