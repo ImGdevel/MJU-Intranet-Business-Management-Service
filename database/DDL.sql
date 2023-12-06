@@ -207,13 +207,17 @@ CREATE TABLE 근태 (
     FOREIGN KEY (직원번호) REFERENCES 직원(직원번호)
 );
 
+CREATE INDEX idx_프로젝트_프로젝트착수일자 ON 프로젝트(프로젝트착수일자);
+CREATE INDEX idx_프로젝트_프로젝트종료일자 ON 프로젝트(프로젝트종료일자);
+CREATE INDEX idx_프로젝트_참여정보_프로젝트투입일자 ON 프로젝트_참여정보(프로젝트투입일자);
+CREATE INDEX idx_프로젝트_참여정보_프로젝트이탈일자 ON 프로젝트_참여정보(프로젝트이탈일자);
+CREATE INDEX idx_일정_시작일자 ON 일정(시작일자);
+CREATE INDEX idx_일정_종료일자 ON 일정(종료일자);
+
 create view 프로젝트참여자수(프로젝트번호, 참여자수) as
 select 프로젝트.프로젝트번호 as 프로젝트번호, count(직원번호)
 from 프로젝트, 프로젝트_참여정보
 where 프로젝트.프로젝트번호 = 프로젝트_참여정보.프로젝트번호
 group by 프로젝트.프로젝트번호;
 
-
-
 COMMIT;
-
